@@ -10,7 +10,7 @@
 // Show is called — which is what SimulationScreen.GetContents reported, so the
 // assertions read the same as they would against a real terminal. Reading the mock
 // terminal's cells instead would test the emulator as well as the drawing,
-// and would mean converting its colours back out of image/color to compare
+// and would mean converting its colors back out of image/color to compare
 // them.
 package simscreen
 
@@ -35,8 +35,8 @@ type Cell struct {
 // at every call site that only ever reports a broken build.
 //
 // The mock terminal is told it has truecolor because cava's gradients use it.
-// Without that tcell resolves every colour down to the sixteen the default
-// terminfo advertises, and a test that compares colours reads back grey.
+// Without that tcell resolves every color down to the sixteen the default
+// terminfo advertises, and a test that compares colors reads back grey.
 func NewScreen() tcell.Screen {
 	mt := vt.NewMockTerm(
 		vt.MockOptSize{X: 80, Y: 25},

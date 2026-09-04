@@ -17,7 +17,7 @@ import (
 // -32768..32768, and every other width is converted into that range rather
 // than into -1..1. That is the original's convention and the equaliser in
 // [Plan] is calibrated for it, so a 32-bit float input is multiplied up by
-// 65535 rather than normalised down.
+// 65535 rather than normalized down.
 type Format struct {
 	// Bits is 8, 16, 24 or 32.
 	Bits int
@@ -317,7 +317,7 @@ func Pump(s *Stream, r io.Reader, in Input, stop <-chan struct{}) error {
 // and "-" or "/dev/stdin" is standard input.
 //
 // A fifo is opened blocking, so this does not return until something opens the
-// other end. That is the behaviour to want — there is nothing to draw before
+// other end. That is the behavior to want — there is nothing to draw before
 // then — but it does mean a wrong path leaves the program waiting rather than
 // failing.
 func OpenSource(path string) (io.ReadCloser, error) {

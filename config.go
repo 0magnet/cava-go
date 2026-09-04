@@ -160,7 +160,7 @@ var unsupportedOutput = map[string]string{
 	"noritake": "a Noritake VFD panel",
 }
 
-// Validate checks the configuration and normalises it, returning an error for
+// Validate checks the configuration and normalizes it, returning an error for
 // anything that cannot be honoured.
 //
 // An input or output method that cava supports through a C library is an error

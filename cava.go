@@ -233,7 +233,7 @@ func Init(numberOfBars, rate, channels, autosens int, noiseReduction float64, lo
 }
 
 // planBands works out which FFT bins each bar sums, and the equaliser that
-// normalises them.
+// normalizes them.
 //
 // The distribution is logarithmic: bar n covers the frequency the original
 // calls upper * 10^c, where c walks linearly from log10(low/high) to 0. The
@@ -426,7 +426,7 @@ func (p *Plan) Execute(in []float64, newSamples int, out []float64) {
 			v := in[n]
 			if p.scalingMode == ScalingDecibel {
 				// Signals arrive in the range of a 16-bit sample; decibel
-				// scaling wants them normalised to -1..1 first.
+				// scaling wants them normalized to -1..1 first.
 				v /= 32768.0
 			}
 			p.inputBuffer[newSamples-n-1] = v

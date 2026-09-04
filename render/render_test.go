@@ -181,7 +181,7 @@ func TestComputeLayoutRejectsTheImpossible(t *testing.T) {
 	}
 }
 
-// TestGradientInterpolates checks the colour ramp: it starts on the first
+// TestGradientInterpolates checks the color ramp: it starts on the first
 // stop, ends exactly on the last, and moves monotonically between them.
 func TestGradientInterpolates(t *testing.T) {
 	colors, err := interpolate([]string{"#000000", "#ffffff"}, 8)
@@ -222,7 +222,7 @@ func TestGradientRejectsBadInput(t *testing.T) {
 }
 
 // TestGradientIsAppliedByRow: the whole point of the vertical gradient is that
-// the colour depends on how high up the bar a cell is, not on which bar it is.
+// the color depends on how high up the bar a cell is, not on which bar it is.
 func TestGradientIsAppliedByRow(t *testing.T) {
 	screen := newTestScreen(t, 2, 4)
 	layout := Layout{Cols: 2, Rows: 4, Bars: 2, BarWidth: 1, BarSpacing: 0}
@@ -244,7 +244,7 @@ func TestGradientIsAppliedByRow(t *testing.T) {
 		red, _, _ := style.GetForeground().RGB()
 		reds = append(reds, red)
 
-		// The second bar in the same row must be the same colour.
+		// The second bar in the same row must be the same color.
 		_, other, _ := screen.Get(1, y)
 		if other.GetForeground() != style.GetForeground() {
 			t.Errorf("row %d: the two bars are different colours", y)

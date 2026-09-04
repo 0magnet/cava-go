@@ -1,6 +1,6 @@
 // Package render draws cava's bars into a tcell screen.
 //
-// Nothing here creates, initialises or finalises a screen: a [Renderer] is
+// Nothing here creates, initializes or finalises a screen: a [Renderer] is
 // handed one and paints into it. That is the same discipline the animations in
 // termanim keep, and for the same reason — it is what lets identical drawing
 // code run in a terminal and inside a browser pane where something else owns
@@ -42,7 +42,7 @@ const (
 	Top
 )
 
-// Style is the colouring, in the same terms as cava's [color] section.
+// Style is the coloring, in the same terms as cava's [color] section.
 //
 // Colors are either one of cava's eight names, "default" to leave the
 // terminal's own, or "#rrggbb".
@@ -50,14 +50,14 @@ type Style struct {
 	Foreground string
 	Background string
 
-	// Gradient colours the screen from the bottom of the bars to the top,
+	// Gradient colors the screen from the bottom of the bars to the top,
 	// interpolating between two to eight stops.
 	Gradient bool
 	// GradientColors are the stops, bottom first.
 	GradientColors []string
 
-	// HorizontalGradient colours by bar rather than by row, so each bar is one
-	// colour and the row of bars runs through the stops.
+	// HorizontalGradient colors by bar rather than by row, so each bar is one
+	// color and the row of bars runs through the stops.
 	HorizontalGradient bool
 	// HorizontalColors are those stops, leftmost first.
 	HorizontalColors []string
@@ -77,7 +77,7 @@ type Layout struct {
 	Bars int
 	// BarWidth and BarSpacing are in cells.
 	BarWidth, BarSpacing int
-	// Offset is the left margin that centres the bars in the leftover cells.
+	// Offset is the left margin that centers the bars in the leftover cells.
 	Offset int
 }
 
@@ -147,7 +147,7 @@ type Renderer struct {
 
 	base tcell.Style
 
-	// vertical is one colour per row, bottom first; horizontal is one per bar.
+	// vertical is one color per row, bottom first; horizontal is one per bar.
 	// Either may be nil.
 	vertical   []color.Color
 	horizontal []color.Color
@@ -300,7 +300,7 @@ func formatFrequency(hz float32) string {
 	return strings.TrimSuffix(s, ".0") + "k"
 }
 
-// Clear blanks the drawing area in the configured background colour. Call it
+// Clear blanks the drawing area in the configured background color. Call it
 // on a resize; a normal frame does not need it because every cell is written.
 func (r *Renderer) Clear(screen tcell.Screen) {
 	line := strings.Repeat(" ", r.layout.Cols)
@@ -322,9 +322,9 @@ var namedColors = map[string]color.Color{
 	"white":   color.Silver,
 }
 
-// parseColor accepts a cava colour name or a '#rrggbb' code.
+// parseColor accepts a cava color name or a '#rrggbb' code.
 //
-// The names map to the eight ANSI colours rather than to their web
+// The names map to the eight ANSI colors rather than to their web
 // equivalents, because that is what cava sets and it is the point of naming
 // them: they follow whatever palette the terminal is themed with.
 func parseColor(s string) (color.Color, error) {
@@ -344,11 +344,11 @@ func parseColor(s string) (color.Color, error) {
 	return color.Default, fmt.Errorf("invalid color %q: use a name or '#rrggbb'", s)
 }
 
-// interpolate spreads two to eight colour stops over size steps.
+// interpolate spreads two to eight color stops over size steps.
 //
 // The division is the original's and is worth keeping rather than tidying: the
 // stops are given whole steps each, and the fractional remainder is carried
-// along and spent one step at a time, so a gradient of three colours over ten
+// along and spent one step at a time, so a gradient of three colors over ten
 // rows does not put its middle stop half a row off where it belongs. The last
 // step is the last stop exactly, whatever the arithmetic produced.
 func interpolate(stops []string, size int) ([]color.Color, error) {
@@ -370,7 +370,7 @@ func interpolate(stops []string, size int) ([]color.Color, error) {
 		}
 		// A gradient has to be interpolated, so its stops must be actual
 		// values. A palette name is whatever the terminal's theme says it is,
-		// and mixing two of those produces a colour that is in neither.
+		// and mixing two of those produces a color that is in neither.
 		if len(s) == 0 || s[0] != '#' {
 			return nil, fmt.Errorf("gradient colors must be given as '#rrggbb', got %q", s)
 		}
