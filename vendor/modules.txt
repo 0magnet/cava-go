@@ -1,0 +1,36 @@
+# github.com/0magnet/go-dsp v0.0.0-20260904172328-4474a45054c8
+## explicit; go 1.23.0
+github.com/0magnet/go-dsp/dsputils
+github.com/0magnet/go-dsp/fft
+# github.com/clipperhouse/displaywidth v0.11.0
+## explicit; go 1.18
+github.com/clipperhouse/displaywidth
+# github.com/clipperhouse/uax29/v2 v2.7.0
+## explicit; go 1.18
+github.com/clipperhouse/uax29/v2/graphemes
+# github.com/gdamore/encoding v1.0.1
+## explicit; go 1.9
+github.com/gdamore/encoding
+# github.com/gdamore/tcell/v3 v3.4.2
+## explicit; go 1.25.0
+github.com/gdamore/tcell/v3
+github.com/gdamore/tcell/v3/color
+github.com/gdamore/tcell/v3/internal/widthutil
+github.com/gdamore/tcell/v3/tty
+github.com/gdamore/tcell/v3/vt
+# github.com/lucasb-eyer/go-colorful v1.4.1
+## explicit; go 1.12
+github.com/lucasb-eyer/go-colorful
+# golang.org/x/sys v0.47.0
+## explicit; go 1.25.0
+golang.org/x/sys/plan9
+golang.org/x/sys/unix
+golang.org/x/sys/windows
+# golang.org/x/term v0.45.0
+## explicit; go 1.25.0
+golang.org/x/term
+# golang.org/x/text v0.41.0
+## explicit; go 1.25.0
+golang.org/x/text/encoding
+golang.org/x/text/encoding/internal/identifier
+golang.org/x/text/transform
