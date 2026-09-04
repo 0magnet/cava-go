@@ -153,6 +153,11 @@ func TestStreamOverflowDiscards(t *testing.T) {
 
 // TestStreamSilenceFills is what makes the picture fall away when the source
 // disappears instead of freezing on the last frame.
+//
+// An earlier version of this test asserted that Silence zeroed the entire
+// buffer, which is what it did and what made the visualiser draw nothing at
+// all for any source faster than real time. The test passed the whole time.
+// Undrawn audio is kept; only the free space becomes silence.
 func TestStreamSilenceFills(t *testing.T) {
 	s := NewStream(4)
 	s.Write([]float64{1, 2})
@@ -160,11 +165,11 @@ func TestStreamSilenceFills(t *testing.T) {
 	dst := make([]float64, 4)
 	n, _ := s.Take(dst, 0) //nolint:errcheck // no reader has failed
 	if n != 4 {
-		t.Fatalf("Silence left %d samples, want 4", n)
+		t.Fatalf("Silence left %d samples, want a full buffer", n)
 	}
-	for i, v := range dst {
-		if v != 0 {
-			t.Errorf("sample %d = %v, want silence", i, v)
+	for i, want := range []float64{1, 2, 0, 0} {
+		if dst[i] != want {
+			t.Fatalf("after Silence the buffer is %v, want [1 2 0 0]", dst)
 		}
 	}
 }
@@ -189,7 +194,7 @@ func TestPumpReadsWholeFrames(t *testing.T) {
 	}
 
 	s := NewStream(frame * 8)
-	err := Pump(s, bytes.NewReader(raw), Format16, frame, nil)
+	err := Pump(s, bytes.NewReader(raw), Input{Format: Format16, Rate: 44100, Channels: 2, FrameSamples: frame, Unpaced: true}, nil)
 	if !errors.Is(err, io.EOF) {
 		t.Fatalf("Pump returned %v, want io.EOF at the end of the data", err)
 	}
@@ -210,13 +215,13 @@ func TestPumpStopsOnRequest(t *testing.T) {
 	stop := make(chan struct{})
 	close(stop)
 	s := NewStream(1024)
-	if err := Pump(s, bytes.NewReader(make([]byte, 4096)), Format16, 512, stop); err != nil {
+	if err := Pump(s, bytes.NewReader(make([]byte, 4096)), Input{Format: Format16, Rate: 44100, Channels: 2, FrameSamples: 512, Unpaced: true}, stop); err != nil {
 		t.Errorf("Pump returned %v after being stopped", err)
 	}
 }
 
 func TestPumpRejectsABadFormat(t *testing.T) {
-	if err := Pump(NewStream(16), bytes.NewReader(nil), Format{Bits: 12}, 8, nil); err == nil {
+	if err := Pump(NewStream(16), bytes.NewReader(nil), Input{Format: Format{Bits: 12}, Rate: 44100, Channels: 2, FrameSamples: 8}, nil); err == nil {
 		t.Error("Pump accepted a 12-bit format")
 	}
 }
@@ -237,7 +242,7 @@ func TestPumpSourceReadsAFifo(t *testing.T) {
 	s := NewStream(8192)
 	stop := make(chan struct{})
 	defer close(stop)
-	go PumpSource(s, path, Format16, 512*2, stop)
+	go PumpSource(s, path, Input{Format: Format16, Rate: 44100, Channels: 2, FrameSamples: 512 * 2}, stop)
 
 	// Opening for writing unblocks the reader's open.
 	w, err := os.OpenFile(path, os.O_WRONLY, 0) //nolint:gosec // the path is the test's own temp dir

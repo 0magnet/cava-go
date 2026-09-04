@@ -188,3 +188,34 @@ func (s *Shaper) combine() {
 		}
 	}
 }
+
+// FrameBudget decides how many samples one frame should consume, given how
+// many are waiting.
+//
+// The two cases are cava's. When the drawing loop is slower than the reader's
+// own frame — the usual arrangement, 60 fps against 512-sample reads — it
+// simply takes everything that has arrived, and the reader's pacing is what
+// keeps that from being the whole track at once. When the loop is faster, it
+// has to ration: take a frame's worth, take less if that is all there is, and
+// take the excess in one go if the reader has got far enough ahead that
+// draining it a frame at a time would never catch up.
+//
+// available, samplesPerFrame and readerFrame are all counted in samples across
+// every channel.
+func FrameBudget(available, samplesPerFrame, readerFrame int) int {
+	if samplesPerFrame >= readerFrame {
+		// Slower than the reader: no rationing needed.
+		return available
+	}
+	use := samplesPerFrame
+	if available < use {
+		// Underrun. Use what there is.
+		use = available
+	}
+	if available > readerFrame+use {
+		// Overrun. The reader got ahead, so take the excess in one go rather
+		// than falling further behind every frame.
+		use = available - readerFrame
+	}
+	return use
+}

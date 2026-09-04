@@ -92,13 +92,15 @@ file to drive it:
 
 ```
 mkfifo /tmp/cava.fifo
-ffmpeg -loglevel quiet -i track.flac -f s16le -ar 44100 -ac 2 -re /tmp/cava.fifo &
+ffmpeg -loglevel quiet -i track.flac -f s16le -ar 44100 -ac 2 /tmp/cava.fifo &
 cava-go -source /tmp/cava.fifo
 ```
 
-`-re` is doing real work there: without it ffmpeg fills the pipe as fast as the
-disk allows, the visualiser sees the whole track in a few frames, and the bars
-sit at nothing. Audio has to arrive at the speed it is played.
+A file or a pipe hands over its contents as fast as the disk allows, which is
+nothing like the speed the audio plays at. cava-go reads at the sample rate
+regardless, so a whole track does not go past in three frames; there is no need
+for ffmpeg's `-re` or any other throttle. A source that is already live — a
+player writing a fifo — is unaffected, because the wait is then always zero.
 
 The fifo is reopened whenever its writer goes away, so restarting the player
 does not mean restarting the visualiser. While nothing is writing, the display
@@ -200,9 +202,9 @@ nothing is worse to debug than one that refuses to start.
 a source for something else — a status bar, an LED strip, a shader.
 
 ```
-$ ffmpeg -loglevel quiet -i track.flac -f s16le -ar 44100 -ac 2 -re - | \
+$ ffmpeg -loglevel quiet -i track.flac -f s16le -ar 44100 -ac 2 - | \
     cava-go -input stdin -raw -bars 16 -o output.channels=mono -o output.data_format=ascii
-0;0;0;8;462;1;0;0;0;0;0;326;0;0;0;0;
+0;0;0;0;0;0;909;10;0;0;0;0;0;0;0;0;
 ```
 
 Binary output is one byte per bar at `bit_format = 8bit` and two little-endian
@@ -233,6 +235,14 @@ is what says the band layout, windowing, equaliser, transform, smoothing and
 sensitivity all agree.
 
 ## Differences from the original
+
+**The reader delivers at the sample rate.** cava assumes a live source, because
+every backend it has is one: the engine estimates its frame rate from how many
+samples arrive per call, the smoothing constants are scaled by that estimate,
+and the drawing loop takes whatever has accumulated since the last frame. Hand
+all of that a file and it is over in three frames. Here the reader waits, so a
+file or a pipe plays at the speed it was recorded at and a source that is
+already live is unaffected — the wait is then always zero.
 
 **A frame with no samples does not poison the frame rate estimate.** cava
 divides by `new_samples / channels`, an integer division, so a call carrying
@@ -292,11 +302,11 @@ gocloc --not-match-d='(vendor|node_modules|\.git)' .
 -------------------------------------------------------------------------------
 Language                     files          blank        comment           code
 -------------------------------------------------------------------------------
-Go                              18            415            812           3698
-Markdown                         1             66              0            236
+Go                              20            458            975           4095
+Markdown                         1             67              0            245
 YAML                             1              0              7             98
 JSON                             1              0              0              8
 -------------------------------------------------------------------------------
-TOTAL                           21            481            819           4040
+TOTAL                           23            525            982           4446
 -------------------------------------------------------------------------------
 ```

@@ -12,20 +12,20 @@
 <!-- github.com/0magnet/cava&#45;go -->
 <g id="node1" class="node">
 <title>github.com/0magnet/cava&#45;go</title>
-<g id="a_node1"><a xlink:href="https://pkg.go.dev/github.com/0magnet/cava-go" xlink:title="github.com/0magnet/cava&#45;go\l1724 / 57.4KB\l" target="_graphviz">
+<g id="a_node1"><a xlink:href="https://pkg.go.dev/github.com/0magnet/cava-go" xlink:title="github.com/0magnet/cava&#45;go\l1969 / 66.2KB\l" target="_graphviz">
 <polygon fill="none" stroke="#913207" stroke-width="2" stroke-opacity="0.698039" points="900,-59 720,-59 720,-23 900,-23 900,-59"/>
 <text xml:space="preserve" text-anchor="start" x="728" y="-44.25" font-family="Times,serif" font-size="10.00">github.com/0magnet/cava&#45;go</text>
-<text xml:space="preserve" text-anchor="start" x="728" y="-31.5" font-family="Times,serif" font-size="10.00">1724 / 57.4KB</text>
+<text xml:space="preserve" text-anchor="start" x="728" y="-31.5" font-family="Times,serif" font-size="10.00">1969 / 66.2KB</text>
 </a>
 </g>
 </g>
 <!-- github.com/0magnet/cava&#45;go/cmd/cava&#45;go -->
 <g id="node2" class="node">
 <title>github.com/0magnet/cava&#45;go/cmd/cava&#45;go</title>
-<g id="a_node2"><a xlink:href="https://pkg.go.dev/github.com/0magnet/cava-go/cmd/cava-go" xlink:title="github.com/0magnet/cava&#45;go/cmd/cava&#45;go\l248 / 7.4KB\l" target="_graphviz">
+<g id="a_node2"><a xlink:href="https://pkg.go.dev/github.com/0magnet/cava-go/cmd/cava-go" xlink:title="github.com/0magnet/cava&#45;go/cmd/cava&#45;go\l203 / 6.2KB\l" target="_graphviz">
 <polygon fill="none" stroke="#914f07" stroke-width="2" stroke-opacity="0.698039" points="270,-59 18,-59 18,-23 270,-23 270,-59"/>
 <text xml:space="preserve" text-anchor="start" x="26" y="-44.25" font-family="Times,serif" font-size="10.00">github.com/0magnet/cava&#45;go/cmd/cava&#45;go</text>
-<text xml:space="preserve" text-anchor="start" x="26" y="-31.5" font-family="Times,serif" font-size="10.00">248 / 7.4KB</text>
+<text xml:space="preserve" text-anchor="start" x="26" y="-31.5" font-family="Times,serif" font-size="10.00">203 / 6.2KB</text>
 </a>
 </g>
 </g>
@@ -38,10 +38,10 @@
 <!-- github.com/0magnet/cava&#45;go/render -->
 <g id="node4" class="node">
 <title>github.com/0magnet/cava&#45;go/render</title>
-<g id="a_node4"><a xlink:href="https://pkg.go.dev/github.com/0magnet/cava-go/render" xlink:title="github.com/0magnet/cava&#45;go/render\l635 / 20.1KB\l" target="_graphviz">
+<g id="a_node4"><a xlink:href="https://pkg.go.dev/github.com/0magnet/cava-go/render" xlink:title="github.com/0magnet/cava&#45;go/render\l620 / 19.7KB\l" target="_graphviz">
 <polygon fill="none" stroke="#079170" stroke-width="2" stroke-opacity="0.698039" points="612,-36 396,-36 396,0 612,0 612,-36"/>
 <text xml:space="preserve" text-anchor="start" x="404" y="-21.25" font-family="Times,serif" font-size="10.00">github.com/0magnet/cava&#45;go/render</text>
-<text xml:space="preserve" text-anchor="start" x="404" y="-8.5" font-family="Times,serif" font-size="10.00">635 / 20.1KB</text>
+<text xml:space="preserve" text-anchor="start" x="404" y="-8.5" font-family="Times,serif" font-size="10.00">620 / 19.7KB</text>
 </a>
 </g>
 </g>

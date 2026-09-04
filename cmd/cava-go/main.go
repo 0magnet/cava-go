@@ -23,8 +23,8 @@ import (
 	"os/signal"
 	"runtime/debug"
 	"strings"
+	"sync"
 	"syscall"
-	"time"
 
 	"github.com/gdamore/tcell/v3"
 
@@ -148,20 +148,31 @@ func run() error {
 
 	// Ctrl-C has to reach the loop rather than the process, or a terminal
 	// screen is left in raw mode with the cursor hidden.
+	//
+	// Closing it on the way out as well as on a signal is what unwinds the
+	// reader goroutine: it waits on the playback clock, and a wait nobody ever
+	// cancels is a goroutine that outlives the program that made it.
 	stop := make(chan struct{})
+	halt := sync.OnceFunc(func() { close(stop) })
+	defer halt()
 	sig := make(chan os.Signal, 1)
 	signal.Notify(sig, os.Interrupt, syscall.SIGTERM)
 	go func() {
 		<-sig
-		close(stop)
+		halt()
 	}()
 
 	// cava's own buffer size: about 185 ms at 44100 stereo.
 	stream := cava.NewStream(16384)
-	go cava.PumpSource(stream, cfg.Source, cfg.Format(), 512*cfg.InputChannels, stop)
+	go cava.PumpSource(stream, cfg.Source, cava.Input{
+		Format:       cfg.Format(),
+		Rate:         cfg.SampleRate,
+		Channels:     cfg.InputChannels,
+		FrameSamples: 512 * cfg.InputChannels,
+	}, stop)
 
 	if cfg.OutputMethod == "raw" {
-		return runRaw(cfg, stream, stop)
+		return rawTo(cfg, stream, stop)
 	}
 
 	screen, err := tcell.NewScreen()
@@ -175,88 +186,6 @@ func run() error {
 	screen.HideCursor()
 
 	return render.Run(screen, cfg, stream, stop)
-}
-
-// runRaw is cava's `raw` output: bar heights on a stream for something else to
-// draw. There is no screen, so the bar count has to be fixed rather than
-// worked out from a width — cava hard-codes 512 per channel and so does this.
-func runRaw(cfg *cava.Config, stream *cava.Stream, stop <-chan struct{}) error {
-	outputChannels := cfg.OutputChannels()
-	audioChannels := cfg.InputChannels
-	if audioChannels == 1 {
-		outputChannels = 1
-	}
-
-	numberOfBars := cfg.Bars
-	if numberOfBars <= 0 {
-		numberOfBars = 512 * outputChannels
-	}
-	if outputChannels == 2 && numberOfBars%2 != 0 {
-		numberOfBars--
-	}
-
-	target := os.Stdout
-	if cfg.RawTarget != "" && cfg.RawTarget != "/dev/stdout" {
-		f, err := os.OpenFile(cfg.RawTarget, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0o600) //nolint:gosec // the path is the user's own config
-		if err != nil {
-			return err
-		}
-		defer f.Close() //nolint:errcheck
-		target = f
-	}
-
-	w := cava.NewRawWriter(target, cfg.DataFormat == "binary", cfg.BitFormat,
-		cfg.AsciiMaxRange, cfg.BarDelimiter, cfg.FrameDelimiter)
-
-	plan, err := cava.Init(numberOfBars/outputChannels, cfg.SampleRate, audioChannels,
-		cfg.Autosens, cfg.NoiseReduction, cfg.LowerCutOff, cfg.HigherCutOff, cfg.Scaling)
-	if err != nil {
-		return err
-	}
-
-	shaper := cava.NewShaper(numberOfBars, plan.Bars(), audioChannels, outputChannels)
-	shaper.Height = float64(w.FullScale())
-	shaper.FilterHeight = w.FullScale()
-	shaper.Sensitivity = cfg.Sensitivity / 100
-	shaper.Monstercat = cfg.Monstercat
-	shaper.Waves = cfg.Waves
-	shaper.UserEQ = cfg.UserEQ
-	shaper.MonoOption = cfg.MonoOption
-	shaper.Reverse = cfg.Reverse
-	// Idle heads are a drawing trick; a consumer of raw values wants a zero to
-	// mean zero.
-	shaper.ShowIdleBarHeads = false
-
-	out := make([]float64, plan.Bars()*audioChannels)
-	heights := make([]int, numberOfBars)
-	take := make([]float64, plan.InputBufferSize())
-
-	ticker := time.NewTicker(time.Second / time.Duration(cfg.Framerate))
-	defer ticker.Stop()
-
-	frames := 0
-	for {
-		select {
-		case <-stop:
-			return nil
-		case <-ticker.C:
-		}
-
-		n, err := stream.Take(take, 0)
-		if err != nil {
-			return err
-		}
-		plan.Execute(take[:n], n, out)
-		shaper.Shape(out, heights)
-		if err := w.WriteFrame(heights); err != nil {
-			return err
-		}
-
-		frames++
-		if cfg.DrawAndQuit > 0 && frames >= cfg.DrawAndQuit {
-			return nil
-		}
-	}
 }
 
 func usage() {
@@ -280,4 +209,20 @@ keys:
 Only the 'fifo' and 'stdin' input methods exist in this port; the rest need C
 libraries. See the README for what that leaves out.
 `)
+}
+
+// rawTo opens the configured raw target and hands it to the library's raw
+// loop. Only the choice of file belongs to the command; the pipeline itself is
+// in the package, where it can be tested.
+func rawTo(cfg *cava.Config, stream *cava.Stream, stop <-chan struct{}) error {
+	target := os.Stdout
+	if cfg.RawTarget != "" && cfg.RawTarget != "/dev/stdout" {
+		f, err := os.OpenFile(cfg.RawTarget, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0o600) //nolint:gosec // the path is the user's own config
+		if err != nil {
+			return err
+		}
+		defer f.Close() //nolint:errcheck
+		target = f
+	}
+	return cava.RunRaw(target, cfg, stream, stop)
 }

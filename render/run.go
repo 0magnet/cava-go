@@ -35,12 +35,11 @@ func Run(screen tcell.Screen, cfg *cava.Config, stream *cava.Stream, stop <-chan
 	}
 	xaxis := cfg.XAxis == "frequency"
 
-	// A frame's worth of samples at the configured rate. cava keeps a buffer
-	// only when the drawing loop is faster than the reader, which it works out
-	// the same way.
-	inputFrame := 512 * audioChannels
-	samplesPerFrame := cfg.SampleRate / cfg.Framerate
-	highFramerate := samplesPerFrame < 512
+	// A frame's worth of samples at the configured rate, against the reader's
+	// own frame. Which of the two is larger decides whether this loop has to
+	// ration what it takes; see [cava.FrameBudget].
+	readerFrame := 512 * audioChannels
+	samplesPerFrame := (cfg.SampleRate / cfg.Framerate) * audioChannels
 
 	ticker := time.NewTicker(time.Second / time.Duration(cfg.Framerate))
 	defer ticker.Stop()
@@ -182,21 +181,7 @@ func Run(screen tcell.Screen, cfg *cava.Config, stream *cava.Stream, stop <-chan
 			}
 		}
 
-		available := stream.Available()
-		samples := available
-		if highFramerate {
-			samples = samplesPerFrame * audioChannels
-			if available < samples {
-				// Underrun: use what there is.
-				samples = available
-			}
-			if available > inputFrame+samples {
-				// Overrun: the reader got ahead, so take the excess in one go
-				// rather than falling further behind every frame.
-				samples = available - inputFrame
-			}
-		}
-		n, err := stream.Take(take, samples)
+		n, err := stream.Take(take, cava.FrameBudget(stream.Available(), samplesPerFrame, readerFrame))
 		if err != nil {
 			return err
 		}
