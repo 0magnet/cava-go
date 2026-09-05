@@ -4,7 +4,7 @@ package cava
 // drawn.
 //
 // Everything between [Plan.Execute] and the screen lives here: manual
-// sensitivity, the scale to the height of the output, the user equaliser, the
+// sensitivity, the scale to the height of the output, the user equalizer, the
 // monstercat filter, and the arrangement of two channels into one row of bars.
 // It is separate from the drawing so that a terminal, a raw stream and a
 // browser canvas can share it.
@@ -94,7 +94,7 @@ func (s *Shaper) Shape(out []float64, dst []int) {
 		out[i] *= s.Height
 	}
 
-	// The user equaliser. Its keys are spread evenly over the bars whatever
+	// The user equalizer. Its keys are spread evenly over the bars whatever
 	// their number, so three keys over sixty bars is a three-band tone
 	// control and sixty keys is a per-bar one.
 	eqAt := func(i int) float64 {

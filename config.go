@@ -161,7 +161,7 @@ var unsupportedOutput = map[string]string{
 }
 
 // Validate checks the configuration and normalizes it, returning an error for
-// anything that cannot be honoured.
+// anything that cannot be honored.
 //
 // An input or output method that cava supports through a C library is an error
 // here and not a warning: falling back to a different source would draw

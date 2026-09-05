@@ -155,7 +155,7 @@ func TestStreamOverflowDiscards(t *testing.T) {
 // disappears instead of freezing on the last frame.
 //
 // An earlier version of this test asserted that Silence zeroed the entire
-// buffer, which is what it did and what made the visualiser draw nothing at
+// buffer, which is what it did and what made the visualizer draw nothing at
 // all for any source faster than real time. The test passed the whole time.
 // Undrawn audio is kept; only the free space becomes silence.
 func TestStreamSilenceFills(t *testing.T) {

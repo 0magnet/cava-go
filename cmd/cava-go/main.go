@@ -1,4 +1,4 @@
-// Command cava-go is a console audio visualiser: a Go port of cava by Karl
+// Command cava-go is a console audio visualizer: a Go port of cava by Karl
 // Stavestrand.
 //
 // It reads raw PCM from a fifo or from standard input and draws it as a
@@ -189,7 +189,7 @@ func run() error {
 }
 
 func usage() {
-	fmt.Fprintf(os.Stderr, `cava-go %s — console audio visualiser, a port of cava by Karl Stavestrand
+	fmt.Fprintf(os.Stderr, `cava-go %s — console audio visualizer, a port of cava by Karl Stavestrand
 
 usage: cava-go [flags]
 

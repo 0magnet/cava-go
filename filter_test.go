@@ -12,7 +12,7 @@ import (
 // For the exponential shape the closed form is exact on both sides: a bar d
 // away from the peak comes out at peak / (monstercat*1.5)^d. The upward pass
 // cannot raise it any further, because spreading from an already-divided
-// neighbour reproduces exactly the same number.
+// neighbor reproduces exactly the same number.
 func TestMonstercatStepResponse(t *testing.T) {
 	const (
 		n          = 11
@@ -85,7 +85,7 @@ func TestWavesStepResponse(t *testing.T) {
 	}
 }
 
-// TestWavesWidensOnALargeSurface checks the height normaliser: on a pixel
+// TestWavesWidensOnALargeSurface checks the height normalizer: on a pixel
 // display the parabola has to be much wider in absolute terms to look the same
 // as it does in a terminal.
 func TestWavesWidensOnALargeSurface(t *testing.T) {

@@ -8,7 +8,7 @@ import (
 	"github.com/0magnet/cava-go"
 )
 
-// Run draws a visualisation on screen until the user quits, stop closes, or
+// Run draws a visualization on screen until the user quits, stop closes, or
 // the configured frame count is reached.
 //
 // It does not call Init or Fini and it does not create the screen: the screen

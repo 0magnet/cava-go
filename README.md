@@ -50,14 +50,14 @@ $ cava-go -input pulse
 cava-go: input method "pulse" needs libpulse and is not available in this pure-Go port; use 'fifo' or 'stdin'
 ```
 
-That is deliberate. A visualiser that quietly draws the wrong source looks
+That is deliberate. A visualizer that quietly draws the wrong source looks
 exactly like one that works.
 
 Of the engine, everything is ported: the two transform sizes, the logarithmic
-band distribution, the hard-coded equaliser, the integral and gravity filters,
-autosens, the monstercat and waves filters, the user equaliser, the eight
+band distribution, the hard-coded equalizer, the integral and gravity filters,
+autosens, the monstercat and waves filters, the user equalizer, the eight
 partial-block glyphs, both orientations that a terminal font can render, and
-the colour options including both gradients. Left out along with SDL are the
+the color options including both gradients. Left out along with SDL are the
 `horizontal` and `vertical` split orientations, the waveform mode, and shaders.
 
 ## Install
@@ -103,7 +103,7 @@ for ffmpeg's `-re` or any other throttle. A source that is already live — a
 player writing a fifo — is unaffected, because the wait is then always zero.
 
 The fifo is reopened whenever its writer goes away, so restarting the player
-does not mean restarting the visualiser. While nothing is writing, the display
+does not mean restarting the visualizer. While nothing is writing, the display
 falls away rather than freezing on its last frame.
 
 **Sample format** is `-rate`, `-channels`, `-bits` and `-float`, defaulting to
@@ -231,7 +231,7 @@ for three hundred frames and checks the final bar heights against a hard-coded
 table to within 2%. That table, and the signal that produces it, are in
 `cava_test.go` unchanged, and this port reproduces it. It is the one test here
 that checks this code against the original rather than against itself, and it
-is what says the band layout, windowing, equaliser, transform, smoothing and
+is what says the band layout, windowing, equalizer, transform, smoothing and
 sensitivity all agree.
 
 ## Differences from the original
@@ -275,7 +275,7 @@ so the same code can be driven from a browser with samples from anywhere.
 `SetSingleThreaded` turns off the transform's worker pool, which is what to do
 under js/wasm.
 
-## Licence
+## License
 
 MIT, as the original is. Copyright (c) 2015 Karl Stavestrand, who wrote cava.
 See [LICENSE](LICENSE).

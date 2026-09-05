@@ -36,7 +36,7 @@ type ScalingMode int
 
 const (
 	// ScalingLinear is cava's legacy scaling: the summed magnitudes times a
-	// hard-coded per-bar equaliser.
+	// hard-coded per-bar equalizer.
 	ScalingLinear ScalingMode = iota
 	// ScalingDecibel converts amplitude to decibels over a 70 dB range, which
 	// resembles perceived loudness more closely and is the better choice when
@@ -51,7 +51,7 @@ const bassCutOff = 100
 // maxDecibel is the dB range decibel scaling maps onto 0..1.
 const maxDecibel = 70
 
-// Plan holds the buffers and the band layout for one visualisation. Create it
+// Plan holds the buffers and the band layout for one visualization. Create it
 // with [Init] and drive it with [Plan.Execute]. It is not safe for concurrent
 // use; one goroutine owns it.
 type Plan struct {
@@ -105,7 +105,7 @@ type Plan struct {
 	peak    []float64
 	fall    []float64
 
-	// eq is the per-bar normalisation applied under linear scaling.
+	// eq is the per-bar normalization applied under linear scaling.
 	eq []float64
 
 	// cutOffFrequency is the lower edge of each bar in Hz, with one extra
@@ -118,7 +118,7 @@ type Plan struct {
 	upperCutOff []int
 }
 
-// Init plans a visualisation.
+// Init plans a visualization.
 //
 // numberOfBars is per channel. rate is the sample rate in Hz and channels is 1
 // or 2; more than two is not supported, as in the original. autosens enables
@@ -232,7 +232,7 @@ func Init(numberOfBars, rate, channels, autosens int, noiseReduction float64, lo
 	return p, nil
 }
 
-// planBands works out which FFT bins each bar sums, and the equaliser that
+// planBands works out which FFT bins each bar sums, and the equalizer that
 // normalizes them.
 //
 // The distribution is logarithmic: bar n covers the frequency the original
@@ -337,7 +337,7 @@ func (p *Plan) planBands(lowCutOff, highCutOff int) {
 		p.cutOffFrequency[n] = relativeCutOff[n] * (float32(p.rate) / 2)
 	}
 
-	// The equaliser. Magnitudes out of an unnormalised FFT are enormous and
+	// The equalizer. Magnitudes out of an unnormalized FFT are enormous and
 	// fall off with frequency; this divides them back into a usable range and
 	// tilts the top end up so treble is visible next to bass.
 	for n := 0; n < p.numberOfBars; n++ {

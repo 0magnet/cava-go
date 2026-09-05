@@ -15,7 +15,7 @@ import (
 //
 // The engine wants samples in the range of a signed 16-bit sample, roughly
 // -32768..32768, and every other width is converted into that range rather
-// than into -1..1. That is the original's convention and the equaliser in
+// than into -1..1. That is the original's convention and the equalizer in
 // [Plan] is calibrated for it, so a 32-bit float input is multiplied up by
 // 65535 rather than normalized down.
 type Format struct {
@@ -253,7 +253,7 @@ const maxLag = 250 * time.Millisecond
 // and sensitivity constants are scaled by that estimate, and the drawing loop
 // takes whatever has accumulated since the last frame. Hand all of it two
 // seconds of audio in five milliseconds — which is what a file, or any pipe
-// not fed by a player, does — and the visualiser sees the whole track in a
+// not fed by a player, does — and the visualizer sees the whole track in a
 // frame or two and then draws silence for as long as it is left running.
 //
 // A genuinely live source is unaffected, because it was already arriving at
@@ -340,7 +340,7 @@ var errStopped = errors.New("cava: stopped")
 // Opening a fifo blocks until something opens the other end, which may be
 // never. The display has to keep falling away while that is going on, or a
 // player that quits leaves its last frame frozen on the screen for as long as
-// the visualiser is left running.
+// the visualizer is left running.
 //
 // If stop closes first the open is abandoned where it stands. The goroutine
 // holding it stays blocked until a writer appears, which is a leak with a

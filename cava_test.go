@@ -13,7 +13,7 @@ import (
 // the final bar heights against a hard-coded blueprint, to within 2%. The
 // blueprint below is copied from that file unchanged, along with its
 // parameters and its signal. If this passes, this port's band layout,
-// equaliser, windowing, transform, smoothing and sensitivity all agree with
+// equalizer, windowing, transform, smoothing and sensitivity all agree with
 // the C engine to three decimal places after three hundred frames of
 // accumulated state.
 //
@@ -120,7 +120,7 @@ func TestToneLandsInItsBand(t *testing.T) {
 			t.Errorf("%.0f Hz peaked in bar %d (%.0f-%.0f Hz), expected bar %d (%.0f-%.0f Hz)",
 				freq, peakBar, cut[peakBar], cut[peakBar+1], want, cut[want], cut[want+1])
 		}
-		// The neighbours pick up some of a windowed tone's skirt; anything
+		// The neighbors pick up some of a windowed tone's skirt; anything
 		// further away should be quiet.
 		for i, v := range out {
 			if i >= peakBar-1 && i <= peakBar+1 {
@@ -208,7 +208,7 @@ func TestSweepMovesTheEnergy(t *testing.T) {
 
 // TestBandsAreOrdered checks the invariant everything else rests on: bars run
 // from low to high, each covers at least one bin, and none overlaps its
-// neighbour.
+// neighbor.
 func TestBandsAreOrdered(t *testing.T) {
 	for _, tc := range []struct {
 		bars, rate, low, high int

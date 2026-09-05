@@ -2,10 +2,10 @@ package cava
 
 import "math"
 
-// MonstercatFilter spreads each bar's height into its neighbours, in place.
+// MonstercatFilter spreads each bar's height into its neighbors, in place.
 //
 // This is the filter cava calls "monstercat smoothing" after the YouTube
-// channel whose visualiser it imitates. It does not smooth in time — that is
+// channel whose visualizer it imitates. It does not smooth in time — that is
 // the integral and gravity filters inside [Plan.Execute] — it smooths across
 // the spectrum, so that a bar with energy in it lifts the bars either side and
 // the row of bars reads as a curve rather than as a comb.
@@ -39,7 +39,7 @@ func MonstercatFilter(bars []float64, waves int, monstercat float64, height int)
 	case waves > 0:
 		for z := range bars {
 			// Cut before spreading. Without it every bar would be lifted by
-			// its neighbours and never lowered, and a busy spectrum would
+			// its neighbors and never lowered, and a busy spectrum would
 			// saturate into a solid block.
 			bars[z] /= 1.25
 			// The two loops walk outwards from z. Note that the bars below z

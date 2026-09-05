@@ -115,9 +115,9 @@ func TestDrawBarWidthAndSpacing(t *testing.T) {
 	}
 }
 
-// TestDrawOffsetCentres checks that the left margin is honoured, which is what
+// TestDrawOffsetCenters checks that the left margin is honored, which is what
 // center_align does.
-func TestDrawOffsetCentres(t *testing.T) {
+func TestDrawOffsetCenters(t *testing.T) {
 	screen := newTestScreen(t, 10, 1)
 	layout := Layout{Cols: 10, Rows: 1, Bars: 2, BarWidth: 2, BarSpacing: 1, Offset: 3}
 	r, err := New(layout, Bottom, Style{Foreground: "default", Background: "default"})
@@ -147,7 +147,7 @@ func TestComputeLayout(t *testing.T) {
 	}{
 		{name: "fills the width", cols: 80, width: 2, gap: 1, wantBars: 27, wantOffset: 0},
 		{name: "stereo rounds down to even", cols: 80, width: 2, gap: 1, stereo: true, wantBars: 26, wantOffset: 0},
-		{name: "centred leaves a margin", cols: 80, width: 2, gap: 1, stereo: true, center: true, wantBars: 26, wantOffset: 1},
+		{name: "centered leaves a margin", cols: 80, width: 2, gap: 1, stereo: true, center: true, wantBars: 26, wantOffset: 1},
 		{name: "one cell each", cols: 10, width: 1, gap: 0, wantBars: 10, wantOffset: 0},
 		{name: "fixed count", cols: 80, fixed: 10, width: 2, gap: 1, wantBars: 10, wantOffset: 0},
 		{name: "a single column", cols: 1, width: 1, gap: 0, wantBars: 1, wantOffset: 0},
@@ -208,10 +208,10 @@ func TestGradientInterpolates(t *testing.T) {
 
 func TestGradientRejectsBadInput(t *testing.T) {
 	if _, err := interpolate([]string{"#000000"}, 8); err == nil {
-		t.Error("a one-colour gradient was accepted")
+		t.Error("a one-color gradient was accepted")
 	}
 	if _, err := interpolate([]string{"#1", "#2", "#3", "#4", "#5", "#6", "#7", "#8", "#9"}, 8); err == nil {
-		t.Error("a nine-colour gradient was accepted")
+		t.Error("a nine-color gradient was accepted")
 	}
 	if _, err := interpolate([]string{"red", "blue"}, 8); err == nil {
 		t.Error("named colors were accepted in a gradient, which cannot be interpolated")
@@ -247,7 +247,7 @@ func TestGradientIsAppliedByRow(t *testing.T) {
 		// The second bar in the same row must be the same color.
 		_, other, _ := screen.Get(1, y)
 		if other.GetForeground() != style.GetForeground() {
-			t.Errorf("row %d: the two bars are different colours", y)
+			t.Errorf("row %d: the two bars are different colors", y)
 		}
 	}
 	if reds[0] >= reds[len(reds)-1] {
@@ -279,7 +279,7 @@ func TestHorizontalGradientIsAppliedByBar(t *testing.T) {
 
 		_, other, _ := screen.Get(x, 1)
 		if other.GetForeground() != style.GetForeground() {
-			t.Errorf("bar %d is a different colour in its two rows", x)
+			t.Errorf("bar %d is a different color in its two rows", x)
 		}
 	}
 	if reds[0] >= reds[3] {
@@ -345,7 +345,7 @@ func TestDrawXAxis(t *testing.T) {
 
 // TestRendererDoesNotOwnTheScreen is the discipline that lets the same drawing
 // code run inside a host that owns the screen already: nothing here may call
-// Init or Fini, and a screen that has been finalised elsewhere is not this
+// Init or Fini, and a screen that has been finalized elsewhere is not this
 // package's business.
 func TestRendererDoesNotOwnTheScreen(t *testing.T) {
 	screen := simscreen.NewScreen()
@@ -363,6 +363,6 @@ func TestRendererDoesNotOwnTheScreen(t *testing.T) {
 	r.Draw(screen, []int{8, 16, 24, 32})
 	screen.Show()
 
-	// The caller finalises it, because the caller made it.
+	// The caller finalizes it, because the caller made it.
 	screen.Fini()
 }

@@ -1,6 +1,6 @@
 // Package render draws cava's bars into a tcell screen.
 //
-// Nothing here creates, initializes or finalises a screen: a [Renderer] is
+// Nothing here creates, initializes or finalizes a screen: a [Renderer] is
 // handed one and paints into it. That is the same discipline the animations in
 // termanim keep, and for the same reason — it is what lets identical drawing
 // code run in a terminal and inside a browser pane where something else owns
