@@ -4,7 +4,7 @@ go 1.26.0
 
 require (
 	github.com/0magnet/go-dsp v0.0.0-20260907230215-136ba239cc2d
-	github.com/gdamore/tcell/v3 v3.4.2
+	github.com/gdamore/tcell/v3 v3.5.0
 )
 
 require (
