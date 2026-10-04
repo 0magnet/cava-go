@@ -3,7 +3,7 @@ module github.com/0magnet/cava-go
 go 1.26.0
 
 require (
-	github.com/0magnet/go-dsp v0.0.0-20260915170035-5d82286bf5d1
+	github.com/0magnet/go-dsp v0.0.0
 	github.com/gdamore/tcell/v3 v3.5.0
 )
 

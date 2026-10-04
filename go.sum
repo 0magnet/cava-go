@@ -1,5 +1,5 @@
-github.com/0magnet/go-dsp v0.0.0-20260915170035-5d82286bf5d1 h1:dyWICcm/VY+110uQMGfnCZe+e62cgM5heNHiyd3M4g4=
-github.com/0magnet/go-dsp v0.0.0-20260915170035-5d82286bf5d1/go.mod h1:ThqukkPy/kmN6c6cyboZYESC9qdJKfYgHTMVp0iW7T0=
+github.com/0magnet/go-dsp v0.0.0 h1:+XcWO6geyJAdyWZMr0WSA7cDSmKkcCARpX+tqXJGJRQ=
+github.com/0magnet/go-dsp v0.0.0/go.mod h1:ThqukkPy/kmN6c6cyboZYESC9qdJKfYgHTMVp0iW7T0=
 github.com/clipperhouse/displaywidth v0.11.0 h1:lBc6kY44VFw+TDx4I8opi/EtL9m20WSEFgwIwO+UVM8=
 github.com/clipperhouse/displaywidth v0.11.0/go.mod h1:bkrFNkf81G8HyVqmKGxsPufD3JhNl3dSqnGhOoSD/o0=
 github.com/clipperhouse/uax29/v2 v2.7.0 h1:+gs4oBZ2gPfVrKPthwbMzWZDaAFPGYK72F0NJv2v7Vk=
