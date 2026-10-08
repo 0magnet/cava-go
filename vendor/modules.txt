@@ -1,4 +1,4 @@
-# github.com/0magnet/go-dsp v0.0.0
+# github.com/0magnet/go-dsp v0.0.1-0.20261004205004-01fc64b17317
 ## explicit; go 1.23.0
 github.com/0magnet/go-dsp/dsputils
 github.com/0magnet/go-dsp/fft
