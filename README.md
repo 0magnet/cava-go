@@ -46,7 +46,7 @@ Asking for one of the missing methods is an error naming the library it would
 have needed, not a silent fallback to something else:
 
 ```
-$ cava-go -input pulse
+$ cava-go --input pulse
 cava-go: input method "pulse" needs libpulse and is not available in this pure-Go port; use 'fifo' or 'stdin'
 ```
 
@@ -78,13 +78,13 @@ audio_output { type "fifo" name "cava" path "/tmp/mpd.fifo" format "44100:16:2" 
 ```
 
 ```
-cava-go -source /tmp/mpd.fifo
+cava-go --source /tmp/mpd.fifo
 ```
 
 **Anything ffmpeg can decode**, straight down a pipe:
 
 ```
-ffmpeg -loglevel quiet -i track.flac -f s16le -ar 44100 -ac 2 - | cava-go -input stdin
+ffmpeg -loglevel quiet -i track.flac -f s16le -ar 44100 -ac 2 - | cava-go --input stdin
 ```
 
 **A fifo you make yourself**, which is how to get any player that can write a
@@ -93,7 +93,7 @@ file to drive it:
 ```
 mkfifo /tmp/cava.fifo
 ffmpeg -loglevel quiet -i track.flac -f s16le -ar 44100 -ac 2 /tmp/cava.fifo &
-cava-go -source /tmp/cava.fifo
+cava-go --source /tmp/cava.fifo
 ```
 
 A file or a pipe hands over its contents as fast as the disk allows, which is
@@ -111,7 +111,7 @@ falls away rather than freezing on its last frame.
 produces:
 
 ```
-cava-go -source /tmp/cava.fifo -rate 48000 -channels 2 -bits 32 -float
+cava-go --source /tmp/cava.fifo --rate 48000 --channels 2 --bits 32 --float
 ```
 
 ## Keys
@@ -203,7 +203,7 @@ a source for something else — a status bar, an LED strip, a shader.
 
 ```
 $ ffmpeg -loglevel quiet -i track.flac -f s16le -ar 44100 -ac 2 - | \
-    cava-go -input stdin -raw -bars 16 -o output.channels=mono -o output.data_format=ascii
+    cava-go --input stdin --raw --bars 16 -o output.channels=mono -o output.data_format=ascii
 0;0;0;0;0;0;909;10;0;0;0;0;0;0;0;0;
 ```
 
