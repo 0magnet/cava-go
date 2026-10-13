@@ -1,11 +1,11 @@
-# github.com/0magnet/calvin v0.0.1-0.20261013200157-9f68c20a964b
+# github.com/0magnet/calvin v0.0.1-0.20261013221715-da6581155df3
 ## explicit; go 1.26.0
 github.com/0magnet/calvin
 github.com/0magnet/calvin/clihelp
 # github.com/0magnet/coloredcobra v1.0.4-0.20261012213101-faa6bd8f94c5
 ## explicit; go 1.26.0
 github.com/0magnet/coloredcobra
-# github.com/0magnet/go-dsp v0.0.1-0.20261004205004-01fc64b17317
+# github.com/0magnet/go-dsp v0.0.1-0.20261013221717-1ec76fa9affb
 ## explicit; go 1.23.0
 github.com/0magnet/go-dsp/dsputils
 github.com/0magnet/go-dsp/fft

@@ -1,9 +1,9 @@
-github.com/0magnet/calvin v0.0.1-0.20261013200157-9f68c20a964b h1:NwY6TUmsN8ck6S+CRcpmdNHULHVTO6WpbVypAuTLug0=
-github.com/0magnet/calvin v0.0.1-0.20261013200157-9f68c20a964b/go.mod h1:d4VzbsL3w6CReFvi3Jbv5V/0U6/BQabOl3feTiuVG7A=
+github.com/0magnet/calvin v0.0.1-0.20261013221715-da6581155df3 h1:9H++x4esxGkKAnqqZhAadZgvgg7tIvP2mKwaX+/NvE0=
+github.com/0magnet/calvin v0.0.1-0.20261013221715-da6581155df3/go.mod h1:d4VzbsL3w6CReFvi3Jbv5V/0U6/BQabOl3feTiuVG7A=
 github.com/0magnet/coloredcobra v1.0.4-0.20261012213101-faa6bd8f94c5 h1:EitsijGOC/B/n+ziuxUBkIy9xhgVnmcDZVOW4eE1xGc=
 github.com/0magnet/coloredcobra v1.0.4-0.20261012213101-faa6bd8f94c5/go.mod h1:XOyBWsYWPuG3gboQHaOve/ubY8HaTqCGjJ+791sF5cM=
-github.com/0magnet/go-dsp v0.0.1-0.20261004205004-01fc64b17317 h1:3sDt++bh6U6VlK07msaJz3I/ya8HuPtcfxRpG+FQJgw=
-github.com/0magnet/go-dsp v0.0.1-0.20261004205004-01fc64b17317/go.mod h1:ThqukkPy/kmN6c6cyboZYESC9qdJKfYgHTMVp0iW7T0=
+github.com/0magnet/go-dsp v0.0.1-0.20261013221717-1ec76fa9affb h1:JAp38Yr7DXoyTVko9hDhBIJDpNZWRiVkp66vGLbYHCI=
+github.com/0magnet/go-dsp v0.0.1-0.20261013221717-1ec76fa9affb/go.mod h1:ThqukkPy/kmN6c6cyboZYESC9qdJKfYgHTMVp0iW7T0=
 github.com/clipperhouse/displaywidth v0.11.0 h1:lBc6kY44VFw+TDx4I8opi/EtL9m20WSEFgwIwO+UVM8=
 github.com/clipperhouse/displaywidth v0.11.0/go.mod h1:bkrFNkf81G8HyVqmKGxsPufD3JhNl3dSqnGhOoSD/o0=
 github.com/clipperhouse/uax29/v2 v2.7.0 h1:+gs4oBZ2gPfVrKPthwbMzWZDaAFPGYK72F0NJv2v7Vk=
