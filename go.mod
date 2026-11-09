@@ -3,7 +3,7 @@ module github.com/0magnet/cava-go
 go 1.26.0
 
 require (
-	github.com/0magnet/calvin v0.0.1-0.20261106130306-95511d0b3e30
+	github.com/0magnet/calvin v0.0.1-0.20261109140133-887794fc87eb
 	github.com/0magnet/go-dsp v0.0.1-0.20261013221717-1ec76fa9affb
 	github.com/gdamore/tcell/v3 v3.6.0
 	github.com/spf13/cobra v1.10.2
@@ -20,7 +20,7 @@ require (
 	github.com/mattn/go-colorable v0.1.16 // indirect
 	github.com/mattn/go-isatty v0.0.24 // indirect
 	github.com/spf13/pflag v1.1.0 // indirect
-	golang.org/x/sys v0.49.0 // indirect
+	golang.org/x/sys v0.50.0 // indirect
 	golang.org/x/term v0.47.0 // indirect
 	golang.org/x/text v0.43.0 // indirect
 )
